@@ -1,0 +1,175 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discover, search, save and explore delicious recipes.">
+    <title>Recipe Book</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="app.js"></script>
+</head>
+<body>
+    <header class="site-header">
+        <a href="#" class="logo" id="home-logo">Recipe Book<span>.</span></a>
+
+        <input
+            type="search"
+            id="search-input"
+            placeholder="Search recipes..."
+            aria-label="Search recipes"
+        >
+
+        <nav class="main-nav">
+            <button type="button" id="home-btn" class="nav-btn active">Home</button>
+            <button type="button" id="favorites-btn" class="nav-btn">
+                Favorites <span id="favorite-count">0</span>
+            </button>
+            <button type="button" id="add-recipe-btn" class="nav-btn">Add Recipe</button>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="hero" id="hero">
+            <p class="eyebrow">YOUR DAILY INSPIRATION</p>
+            <h1>Discover your next<br>favorite recipe<span>.</span></h1>
+            <p>Simple ideas, delicious meals, and inspiration for every day.</p>
+        </section>
+
+        <section id="home-view">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">EXPLORE OUR COLLECTION</p>
+                    <h2 id="collection-title">Popular Recipes</h2>
+                </div>
+                <span id="results-count" class="results-count"></span>
+            </div>
+
+            <div class="toolbar">
+                <label>
+                    Category
+                    <select id="category-filter">
+                        <option value="all">All categories</option>
+                    </select>
+                </label>
+
+                <label>
+                    Sort by
+                    <select id="sort-select">
+                        <option value="default">Default</option>
+                        <option value="name-asc">Name: A–Z</option>
+                        <option value="rating-desc">Rating: highest first</option>
+                    </select>
+                </label>
+            </div>
+
+            <div id="status-area" aria-live="polite"></div>
+            <div id="recipe-list" class="recipe-grid" aria-live="polite"></div>
+            <div id="pagination" class="pagination"></div>
+        </section>
+
+        <section id="detail-view" class="hidden"></section>
+
+        <section id="add-view" class="hidden">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">SHARE YOUR CREATION</p>
+                    <h2 id="form-title">Add a Recipe</h2>
+                    <p>Bring a new favorite to the collection.</p>
+                </div>
+            </div>
+
+            <form id="recipe-form" class="recipe-form" novalidate>
+                <label>
+                    Recipe name *
+                    <input type="text" name="name" required minlength="2" maxlength="100">
+                    <small class="field-error" data-error="name"></small>
+                </label>
+
+                <label>
+                    Cuisine *
+                    <input type="text" name="cuisine" required maxlength="60">
+                    <small class="field-error" data-error="cuisine"></small>
+                </label>
+
+                <label>
+                    Image URL
+                    <input type="url" name="image" placeholder="https://example.com/recipe.jpg">
+                    <small class="field-error" data-error="image"></small>
+                </label>
+
+                <label>
+                    Meal type *
+                    <select name="mealType" required>
+                        <option value="">Choose a meal type</option>
+                        <option value="Breakfast">Breakfast</option>
+                        <option value="Lunch">Lunch</option>
+                        <option value="Dinner">Dinner</option>
+                        <option value="Snack">Snack</option>
+                        <option value="Dessert">Dessert</option>
+                    </select>
+                    <small class="field-error" data-error="mealType"></small>
+                </label>
+
+                <label>
+                    Preparation time (minutes) *
+                    <input type="number" name="prepTimeMinutes" min="0" max="1440" required>
+                    <small class="field-error" data-error="prepTimeMinutes"></small>
+                </label>
+
+                <label>
+                    Cooking time (minutes) *
+                    <input type="number" name="cookTimeMinutes" min="0" max="1440" required>
+                    <small class="field-error" data-error="cookTimeMinutes"></small>
+                </label>
+
+                <label>
+                    Rating (0–5) *
+                    <input type="number" name="rating" min="0" max="5" step="0.1" required>
+                    <small class="field-error" data-error="rating"></small>
+                </label>
+
+                <label>
+                    Servings *
+                    <input type="number" name="servings" min="1" max="100" value="2" required>
+                    <small class="field-error" data-error="servings"></small>
+                </label>
+
+                <label>
+                    Tags (comma-separated)
+                    <input type="text" name="tags" placeholder="quick, vegetarian">
+                </label>
+
+                <label class="full-width">
+                    Description *
+                    <textarea name="description" rows="4" required minlength="5" maxlength="1000"></textarea>
+                    <small class="field-error" data-error="description"></small>
+                </label>
+
+                <label class="full-width">
+                    Ingredients (one per line) *
+                    <textarea name="ingredients" rows="4" required placeholder="2 tomatoes&#10;1 onion&#10;Salt"></textarea>
+                    <small class="field-error" data-error="ingredients"></small>
+                </label>
+
+                <label class="full-width">
+                    Instructions (one step per line) *
+                    <textarea name="instructions" rows="4" required placeholder="Prepare the ingredients&#10;Cook and serve"></textarea>
+                    <small class="field-error" data-error="instructions"></small>
+                </label>
+
+                <div class="form-actions full-width">
+                    <button type="button" id="cancel-form-btn" class="secondary-btn">Cancel</button>
+                    <button type="submit" class="primary-btn">Save Recipe</button>
+                </div>
+
+                <p id="form-message" class="form-message full-width" aria-live="polite"></p>
+            </form>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>Recipe Book — made for food lovers.</p>
+    </footer>
+</body>
+</html>
